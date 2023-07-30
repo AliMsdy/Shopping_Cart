@@ -1,0 +1,20 @@
+.span {
+  background-color: #264987;
+  clip-path: circle();
+  position: absolute;
+  color: #fff;
+}
+
+.lessThanTen {
+  top: -14px;
+  right: -3px;
+  padding: 6px;
+  font-size: 17px;
+}
+
+.moreThanTen {
+  top: -10px;
+  right: -6px;
+  padding: 3px;
+  font-size: 16px;
+}
