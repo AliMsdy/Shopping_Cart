@@ -29,6 +29,11 @@ const productsSlice = createSlice({
       );
       if (selectedProductId !== -1) products[selectedProductId].amount--;
     },
+    clear({ products }) {
+      products.forEach((product) => {
+        product.amount = 0;
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -50,5 +55,5 @@ const productsSlice = createSlice({
   },
 });
 
-export const { increment, decrement } = productsSlice.actions;
+export const { increment, decrement, clear } = productsSlice.actions;
 export default productsSlice.reducer;

@@ -1,9 +1,12 @@
-import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { appContext } from "../../../context/appContext";
+import { useDispatch } from "react-redux";
+import {
+  increment,
+  decrement,
+} from "../../../Redux/productsSlice/productsSlice";
 
 const SelectedProduct = ({ title, price, image, amount, id }) => {
-  let { dispatch } = useContext(appContext);
+  const dispatch = useDispatch();
   let name = `${title.split(" ")[0]} ${title.split(" ")[1]}`;
   return (
     <div className="bg-white border border-2 rounded-3 p-2 mb-4 d-flex justify-content-between align-items-center">
@@ -21,7 +24,7 @@ const SelectedProduct = ({ title, price, image, amount, id }) => {
       </span>
       <div className="d-flex justify-content-center">
         <button
-          onClick={() => dispatch({ type: "Decrement", payload: { id } })}
+          onClick={() => dispatch(decrement(id))}
           className="btn btn-primary px-sm-2 px-1 mx-1"
         >
           {amount === 1 ? (
@@ -31,7 +34,7 @@ const SelectedProduct = ({ title, price, image, amount, id }) => {
           )}
         </button>
         <button
-          onClick={() => dispatch({ type: "Increment", payload: { id } })}
+          onClick={() => dispatch(increment(id))}
           className="btn btn-primary px-sm-2 px-1 mx-1"
         >
           <FontAwesomeIcon icon="fa-solid fa-plus" />
