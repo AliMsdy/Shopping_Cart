@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 //Components
@@ -7,21 +7,24 @@ import Cart from "./components/Cart/Cart";
 import Layout from "./components/Layout/Layout";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 
-//Context
-import ContextProvider from "./context/appContext";
+//Redux state
+import { useDispatch } from "react-redux";
+import { fetchProductsData } from "./Redux/productsSlice/productsSlice";
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProductsData());
+  }, []);
   return (
-    <ContextProvider>
-      <Layout>
-        <Routes>
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/*" element={<Navigate to="/products" />} />
-        </Routes>
-      </Layout>
-    </ContextProvider>
+    <Layout>
+      <Routes>
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/*" element={<Navigate to="/products" />} />
+      </Routes>
+    </Layout>
   );
 };
 

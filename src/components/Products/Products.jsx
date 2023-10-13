@@ -1,32 +1,26 @@
-import React, { useContext } from "react";
 import Product from "./Product/Product";
 import Loading from "../Loading/Loading";
-import { appContext } from "../../context/appContext";
 
+import { useSelector } from "react-redux";
 const Products = () => {
-  let { products } = useContext(appContext);
-  let markUp = <Loading />;
-  if (products.length) {
-    let productItems = products.map((product) => (
-      <Product key={product.id} {...product} />
-    ));
-    markUp = (
-      <div className="container mb-5">
-        <div className="row gy-5 p-sm-2 p-5">{productItems}</div>
-        <footer className="mt-3 text-center">
-          Developed with Love by{" "}
-          <a
-            href="https://github.com/AliMsdy"
-            target="blank"
-            className="text-decoration-none"
-          >
-            AliMoosabadi
-          </a>
-        </footer>
-      </div>
-    );
-  }
-  return markUp;
+  const products = useSelector((state) => state.products);
+  const error = useSelector((state) => state.error);
+  const loading = useSelector((state) => state.loading);
+
+  return (
+    <div className="row gy-5 p-sm-2 p-5 text-center mb-5">
+      {loading ? (
+        <Loading />
+      ) : error ? (
+        <p className="text-danger">
+          {error.message}
+          <div>try again later</div>
+        </p>
+      ) : (
+        products.map((product) => <Product key={product.id} {...product} />)
+      )}
+    </div>
+  );
 };
 
 export default Products;

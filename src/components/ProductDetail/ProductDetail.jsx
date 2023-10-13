@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { appContext } from "../../context/appContext";
+import { useSelector } from "react-redux";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  let { products } = useContext(appContext);
+  const products = useSelector((state) => state.products);
   let navigate = useNavigate();
   let selectedProduct = products[id - 1];
+  // move the user to the main page if tried to enter the invalid product id
   if (!selectedProduct) {
     navigate("/products");
   } else {

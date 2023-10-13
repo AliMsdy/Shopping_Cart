@@ -1,17 +1,18 @@
-import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./Product.module.css";
-import { appContext } from "../../../context/appContext";
+
+import { useDispatch } from "react-redux";
+import {
+  increment,
+  decrement,
+} from "../../../Redux/productsSlice/productsSlice";
 
 const Product = ({ title, price, image, id, amount }) => {
-  const { dispatch } = useContext(appContext);
+  const dispatch = useDispatch();
   let name = `${title.split(" ")[0]} ${title.split(" ")[1]}`;
   let replaceElement = (
-    <button
-      onClick={() => dispatch({ type: "Increment", payload: { id } })}
-      className="btn btn-primary"
-    >
+    <button onClick={() => dispatch(increment(id))} className="btn btn-primary">
       Add to Cart
     </button>
   );
@@ -19,7 +20,7 @@ const Product = ({ title, price, image, id, amount }) => {
     replaceElement = (
       <div>
         <button
-          onClick={() => dispatch({ type: "Decrement", payload: { id } })}
+          onClick={() => dispatch(decrement(id))}
           className="btn btn-primary mx-1 py-1 px-2"
         >
           {amount > 1 ? (
@@ -32,7 +33,7 @@ const Product = ({ title, price, image, id, amount }) => {
           {amount}
         </span>
         <button
-          onClick={() => dispatch({ type: "Increment", payload: { id } })}
+          onClick={() => dispatch(increment(id))}
           className="btn btn-primary mx-1 py-1 px-2"
         >
           <FontAwesomeIcon icon="fa-solid fa-plus" />

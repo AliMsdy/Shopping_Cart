@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { appContext } from "../../context/appContext";
 import styles from "./Header.module.css";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   let { span, lessThanTen, moreThanTen } = styles;
   let spanClassName = `${span} ${lessThanTen}`;
-  const { products } = useContext(appContext);
+
+  const products = useSelector((state) => state.products);
   let amountOfBasketProduct = products.reduce(
     (total, current) => (total += current.amount),
     0
